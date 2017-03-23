@@ -3,6 +3,9 @@ export TERM=xterm-256color
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 export PS1='\w\[\033[32m\]$(parse_git_branch)\[\033[00m\] $ '
 
+# Required files in home directory for full functionality:
+# .git-completion.bash
+
 # Helpful Aliases
 
 alias ll="ls -l"
@@ -30,6 +33,11 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 
 }
+
+# Autocomplete Git Branch
+if [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+fi
 
 # Docker
 eval "$(docker-machine env default)"
